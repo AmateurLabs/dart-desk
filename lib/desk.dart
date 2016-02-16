@@ -132,6 +132,18 @@ class MusicFile extends SoundFile {
     num time = desk.getContext().currentTime;
     if (_bufferNode != null) _bufferNode.stop(time);
   }
+  
+  void fadeOut([num duration = 0.5]) {
+    num time = desk.getContext().currentTime;
+    _gainNode.gain.cancelScheduledValues(time);
+    _gainNode.gain.linearRampToValueAtTime(0.0, time+duration);
+  }
+  
+  void fadeIn([num duration = 0.5]) {
+    num time = desk.getContext().currentTime;
+    _gainNode.gain.cancelScheduledValues(time);
+    _gainNode.gain.linearRampToValueAtTime(1.0, time+duration);    
+  }
 }
 
 class SoundWave extends Sound {
